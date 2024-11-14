@@ -4,7 +4,7 @@ import prisma from '@/prisma/client'
 
 const createIssuesSchema = z.object({
     title: z.string().min(1).max(255),
-    descripion: z.string().min(1)
+    description: z.string().min(1)
 })
 
 export async function POST(request: NextRequest) {
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(validation.error.errors, { status: 400 })
 
     const newIssue = await prisma.issue.create({
-        data: { title: body.title, description: body.descripion }
+        data: { title: body.title, description: body.description }
     })
 
     return NextResponse.json(newIssue, { status: 201 })
